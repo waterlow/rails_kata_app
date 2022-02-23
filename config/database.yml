@@ -79,8 +79,8 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
-production:
-  <<: *default
-  database: rails_kata_app_production
-  username: rails_kata_app
-  password: <%= ENV['RAILS_KATA_APP_DATABASE_PASSWORD'] %>
+# production:
+#   <<: *default
+#   database: rails_kata_app_production
+#   username: rails_kata_app
+#   password: <%= ENV['RAILS_KATA_APP_DATABASE_PASSWORD'] %>
