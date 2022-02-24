@@ -13,7 +13,7 @@ jobs:
       - ruby/install-deps
   build_and_push:
     docker:
-      - image: cimg/base
+      - image: cimg/base:edge
     steps:
       - setup_remote_docker:
           version: 20.10.11
