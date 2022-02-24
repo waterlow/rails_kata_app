@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   ruby: circleci/ruby@1.4.0
+  aws-ecr: circleci/aws-ecr@7.2.0
 
 jobs:
   build:
@@ -10,3 +11,18 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
+
+workflows:
+  simple_build_and_push:
+    jobs:
+      - build
+      - aws-ecr/build-and-push-image:
+          repo: rails-kata
+          extra-build-args: |
+            --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE \
+            --build-arg DATABASE_URL=$DATABASE_URL \
+          requires:
+            - build
+          filters:
+            branches:
+              only: main
