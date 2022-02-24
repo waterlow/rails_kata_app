@@ -11,16 +11,22 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
-
-workflows:
-  simple_build_and_push:
-    jobs:
-      - build
+  build_and_push:
+    docker:
+      - image: cimg/base
+    steps:
+      - setup_remote_docker:
+          version: 20.10.11
       - aws-ecr/build-and-push-image:
           repo: rails-kata
           extra-build-args: |
             --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE \
             --build-arg DATABASE_URL=$DATABASE_URL \
+workflows:
+  build_deploy:
+    jobs:
+      - build
+      - build_and_push:
           requires:
             - build
           filters:
