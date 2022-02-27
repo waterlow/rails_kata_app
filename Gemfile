@@ -39,6 +39,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem 'daemons'
 gem 'delayed_job_active_record'
 # Add it after the lines for all other delayed_job* gems so the gem can properly integrate with the Delayed::Job code.
 gem 'delayed_cron_job'
