@@ -45,3 +45,9 @@ workflows:
           filters:
             branches:
               only: main
+      - deploy:
+          requires:
+            - build_and_push
+          filters:
+            branches:
+              only: main
