@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :posts
   resources :users
   get 'health_check', to: 'application#health_check'
   get 'sample', to: 'application#sample'
