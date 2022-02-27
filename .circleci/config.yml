@@ -35,6 +35,10 @@ jobs:
             aws ecs describe-task-definition --task-definition rails-kata-web | jq  '.taskDefinition | { containerDefinitions: .containerDefinitions }' > definition.json
             aws ecs register-task-definition --family rails-kata-web --cli-input-json file://definition.json
             aws ecs update-service --cluster rails-kata-ecs-cluster --service rails-kata-web-service --task-definition rails-kata-web
+      - run:
+          name: migration
+          command: |
+            aws ecs run-task --cluster rails-kata-ecs-cluster --task-definition rails-kata-migration
 workflows:
   build_deploy:
     jobs:
