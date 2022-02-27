@@ -4,6 +4,6 @@ class ApplicationController < ActionController::API
   end
 
   def sample
-    render plain: 'v1'
+    render plain: 'v2'
   end
 end
