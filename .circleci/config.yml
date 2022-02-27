@@ -2,7 +2,9 @@ version: 2.1
 
 orbs:
   ruby: circleci/ruby@1.4.0
-  aws-ecr: circleci/aws-ecr@7.2.0
+  aws-ecr: circleci/aws-ecr@7.3.0
+  aws-cli: circleci/aws-cli@2.1.0
+  jq: circleci/jq@2.2.0
 
 jobs:
   build:
@@ -22,6 +24,17 @@ jobs:
           extra-build-args: |
             --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE \
             --build-arg DATABASE_URL=$DATABASE_URL \
+  deploy:
+    executor: aws-cli/default
+    steps:
+      - aws-cli/setup
+      - jq/install
+      - run:
+          name: deploy
+          command: |
+            aws ecs describe-task-definition --task-definition rails-kata-web | jq  '.taskDefinition | { containerDefinitions: .containerDefinitions }' > definition.json
+            aws ecs register-task-definition --family rails-kata-web --cli-input-json file://definition.json
+            aws ecs update-service --cluster rails-kata-ecs-cluster --service rails-kata-web-service --task-definition rails-kata-web
 workflows:
   build_deploy:
     jobs:
