@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :db do
   desc 'Schedule all cron jobs'
   task schedule_jobs: :environment do
@@ -14,5 +16,13 @@ namespace :db do
     end
 
     scheduled_jobs.except(schedulable_jobs.map(&:name)).each_value(&:destroy)
+  end
+end
+
+%w[db:migrate].each do |task|
+  Rake::Task[task].enhance do
+    next unless Rails.env.production?
+
+    Rake::Task['db:schedule_jobs'].invoke
   end
 end
