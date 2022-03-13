@@ -9,13 +9,13 @@ orbs:
 jobs:
   build:
     docker:
-      - image: 'cimg/ruby:3.0.2'
+      - image: 'cimg/ruby:3.1.1'
     steps:
       - checkout
       - ruby/install-deps
   build_and_push:
     docker:
-      - image: cimg/base:2022.02
+      - image: cimg/base:2022.03
     steps:
       - setup_remote_docker:
           version: 20.10.11
