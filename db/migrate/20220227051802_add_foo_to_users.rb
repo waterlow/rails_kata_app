@@ -1,4 +1,4 @@
-class AddFooToUsers < ActiveRecord::Migration[6.1]
+class AddFooToUsers < ActiveRecord::Migration[7.0]
   def change
     add_column :users, :foo, :string
   end
