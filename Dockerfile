@@ -1,4 +1,4 @@
-FROM ruby:3.0.3-alpine
+FROM ruby:3.0.2-alpine
 ARG DATABASE_URL
 ARG SECRET_KEY_BASE
 ENV LANG=C.UTF-8 \
